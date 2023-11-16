@@ -1,4 +1,0 @@
-D:\HULK\obj\Debug\net7.0\HULK.GeneratedMSBuildEditorConfig.editorconfig
-D:\HULK\obj\Debug\net7.0\HULK.AssemblyInfoInputs.cache
-D:\HULK\obj\Debug\net7.0\HULK.AssemblyInfo.cs
-D:\HULK\obj\Debug\net7.0\HULK.csproj.CoreCompileInputs.cache
