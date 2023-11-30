@@ -20,10 +20,13 @@ class Evaluator
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 errorList.Add("SEMANTIC ERROR: Function declaration expression can not be used.");
+                /*
                 for (int i = 0; i < errorList.Count; i++)
                 {
                     System.Console.WriteLine(errorList[i]);
                 }
+                */
+                System.Console.WriteLine(errorList[0]);
                 Console.ResetColor();
             }else
             {
@@ -33,10 +36,13 @@ class Evaluator
                 if (errorList.Count != 0)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
+                    /*
                     for (int i = 0; i < errorList.Count; i++)
                     {
                         System.Console.WriteLine(errorList[i]);
                     }
+                    */
+                    System.Console.WriteLine(errorList[0]);
                     Console.ResetColor();
                 }else
                 {
@@ -51,10 +57,13 @@ class Evaluator
             if (errorList.Count != 0)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
+                /*
                 for (int i = 0; i < errorList.Count; i++)
                 {
                     System.Console.WriteLine(errorList[i]);
                 }        
+                */
+                System.Console.WriteLine(errorList[0]);
                 Console.ResetColor();
             }else
             {
@@ -1093,7 +1102,7 @@ class Evaluator
             if (value == null)
             {
                 errorList.Add($"SEMANTIC ERROR: Reference to an undeclared variable: {identifier.Name}");
-                return null; 
+                return null;
             }else
             {
                 return EvaluateExpression(value);
@@ -1118,8 +1127,10 @@ class Evaluator
             System.Console.WriteLine(boolean.BooleanValue.Text);
         }
     }
+    
     List<Function> functions = new List<Function>();
     List<string> functionsNames = new List<string>();
+    
     public void EvaluateFunctionDeclaration(Function function)
     {
         

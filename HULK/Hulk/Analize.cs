@@ -80,6 +80,7 @@ class Analize
     //Continua analizando la linea y devuelve el siguiente token
     public Token NextToken()
     {
+
         if(_position >= _text.Length)
         {
             return new Token(TokenType.EndLine, "\0", _position);

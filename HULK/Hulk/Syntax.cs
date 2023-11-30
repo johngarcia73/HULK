@@ -2,6 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq.Expressions;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
 
 abstract class Term                                                                                               
 {
@@ -350,14 +351,19 @@ class Syntax
     public Token Current => Find();
     private Token token1;
     public string line{get;}
+    private string auxName="";
 
     public Syntax(string Line)
     {
         line = Line;
     }
 
-    public List<Token> AddToken()
+    public /*List<Token>*/ void AddToken()
     {
+        if (line.Length == 0)
+        {
+            errorList.Add($"LEXICAL ERROR: The line is empty, instructions expected.");   
+        }
 
         Analize lex = new Analize(line);
 
@@ -375,7 +381,7 @@ class Syntax
 
         }while(token1.Kind != TokenType.EndLine);
 
-        return tokensList;
+        //return tokensList;
     }
     public Token Match(TokenType kind)
     {
@@ -447,7 +453,7 @@ class Syntax
             case TokenType.ReservedFunction:
                 return CheckBinary();    
             default:
-                errorList.Add("Unexpected token " + Current.Text + ".");
+                errorList.Add("SYNTAX ERROR: Unexpected token " + Current.Text + ".");
             break;    
         }
         return new NumberExp(Current);
@@ -654,6 +660,10 @@ class Syntax
         }
         var id = Match(TokenType.Identifier);
         Identifier identifier = new Identifier(Current.Text);
+        if (identifier.Name == auxName)
+        {
+            errorList.Add("SYNTAX ERROR: Use of unassigned identifier " + auxName + ".");  
+        }
         if (identifierIsInsideFunction)
         {
             identifier.ComingFromFunction = ExecutingFunction.executingFunction.Name;
@@ -891,9 +901,11 @@ class Syntax
     public Assignment CheckAssign()
     {
         Identifier term1 = CheckIdentifier();
+        auxName = term1.Name;
         var equal = Match(TokenType.Equals);
         NextPosition();
         var term2 = CheckExpression();
+        auxName = "";
         
         return new Assignment(term1, term2);
     }

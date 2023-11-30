@@ -3,17 +3,14 @@ public class Program
 {
     static void Main(string[] args)
     {
-        int count = 0;
         while(true)
         {
             Evaluator.stack = 0;
             Console.Write("> ");
             var line = Console.ReadLine();
-            //string line = "-2 + -3;";
-            count = 1;
             var syntax = new Syntax(line);
             var evaluator = new Evaluator();
-            var tokensList = syntax.AddToken();
+            syntax.AddToken();
             var expression = syntax.CheckFullExpression();
             
             if (expression.ErrorsList.Count != 0)
@@ -29,7 +26,6 @@ public class Program
             {
                 evaluator.EvaluateFullExpression(expression);
             }
-            
         }
     }
 }
